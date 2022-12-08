@@ -1,14 +1,15 @@
 <?php 
 include 'registerCheck.php';
-                
+session_start();
+define('check', 1);
 if (isset($_POST["register_btn"])) {
-    echo 'Проверяем';
+     'Проверяем';
 }
 
 echo'
-<div class="registerForm">
+<div class="registerForm" id="registerCheck">
     <span class="reg_text">Регистрация</span>
-    <form class="formReg" action="registerCheck.php" method="post">
+    <form class="formReg" id="formReg" action="registerCheck.php" method="post">
         <input class="login" name="login" type="text" placeholder="Логин"> 
         '?> <?php if ($_SESSION['messageErrLogin']){
             echo $_SESSION['messageErrLogin'];
@@ -24,6 +25,7 @@ echo'
 
         <?php if ($_SESSION['messageErrPass']){
             echo $_SESSION['messageErrPass'];
+          
         }else if ($_SESSION['messageErrPasswordEmpty']) {
             echo $_SESSION['messageErrPasswordEmpty'];
         }
@@ -37,6 +39,7 @@ echo'
         ' ?> 
         <?php if ($_SESSION['messageErrConfPass']){
             echo $_SESSION['messageErrConfPass'];
+            
         } else if ($_SESSION['messageErrPassConfwordEmpty']) {
             echo $_SESSION['messageErrPassConfwordEmpty'];
         }
