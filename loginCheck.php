@@ -1,4 +1,8 @@
 <?php
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) ) {
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+    die( header( 'location: /error.php' ) );
+    }
 session_start();
 
 class loginUser {
@@ -55,22 +59,18 @@ $checkPass = $login->getPass($_POST['password']); // получаю пароль
                 $CheckAncwer = json_encode($file);
                 echo $CheckAncwer;
                 break;
-            } else {
-
-                if ($loginValid === 0 || $passValid === 0){
-                    $_SESSION['messageLoginValid']  = '<div class="error">Неверный логин или пароль</div>';
-
-                }
+            }
 
                 
           }
-        }      
+        }    else if ($loginValid === 0 || $passValid === 0){
+            $_SESSION['messageLoginValid']  .= '<div class="error">Неверный логин или пароль</div>';
+
+        }   
 
 
     }
 
-
-}
 
 
        
