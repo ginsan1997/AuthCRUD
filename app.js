@@ -1,21 +1,29 @@
 $(document).ready(function(){
 
-$('form').submit(function(event){
-    event.preventDefault();
-    $.ajax({
-        type: $(this).attr('method'),
-        url: $(this).attr('action'),
-        data: new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(result){
-            // alert($.parseJSON(result)) 
-            location.reload();  
-        },
 
-    })
-});  
+$("#formLog").on("submit", function(){
+	$.ajax({
+		url: '/loginCheck.php',
+		method: 'post',
+		dataType: 'html',
+		data: $(this).serialize(),
+		success: function(data){
+			$('#loginCheck').html(data);
+		}
+	});
+});
+$("#formReg").on("submit", function(){
+	$.ajax({
+		url: '/registerCheck.php',
+		method: 'post',
+		dataType: 'html',
+		data: $(this).serialize(),
+		success: function(data){
+			$('#registerCheck').html(data);
+		}
+	});
+});
+
 
 
 
