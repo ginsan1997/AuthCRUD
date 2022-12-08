@@ -1,4 +1,8 @@
-<?php session_start();?>
+<?php session_start();
+
+define('close', TRUE);
+
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -22,7 +26,7 @@
 
 <div class="mainBlock">
 <?php
-               
+               define('check', TRUE);
                 if($_SESSION['name'] != '') {?>
                 <div class="blockLK">
                     <?php echo '<div class="helloName">Hello, '.$_SESSION['name'].'</div>'?>
