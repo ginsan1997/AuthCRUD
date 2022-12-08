@@ -58,7 +58,8 @@ session_start();
                 <input type="text" value="<?php echo $value['password'] ;?>" name="passwordNew" placeholder=" Пароль">
                 <input type="text" value="<?php echo $value['email'] ;?>" name="emailNew" placeholder="Email">
                 <input type="text" value="<?php echo $value['name'] ;?>" name="nameNew" placeholder="Имя">
-                    <input type="hidden" value="<?php echo $key;?>" name="key">
+                <input type="hidden" value="<?php echo $key;?>" name="key">
+                
                     <button type="submit" name="save" class="saveCRUD"> Сохранить</button>
                 </form>
             </div>
