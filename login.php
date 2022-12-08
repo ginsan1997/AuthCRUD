@@ -1,12 +1,14 @@
 
 <?php 
 include 'loginCheck.php';
+session_start();
+define('check', 1);
 echo '
 
 
-<div class="loginForm">
+<div class="loginForm" id="loginCheck">
 <span class="log_text">Вход</span>
-    <form class="formLog" action="loginCheck.php" method="post">
+    <form class="formLog" id="formLog" action="loginCheck.php" method="post">
         <input class="login" name="login" type="text" placeholder="login">' ?>
 
         <?php if ($_SESSION['messageErrLoginEmptyLogin']) {
@@ -20,6 +22,7 @@ echo '
 '?>
 
 <?php 
+
 if ($_SESSION['messageErrPasswordEmptyLogin']) {
     echo $_SESSION['messageErrPasswordEmptyLogin'];
 }
@@ -31,10 +34,11 @@ unset($_SESSION['messageErrPasswordEmptyLogin']);
     </form>' ?>
     <?php if ($_SESSION['messageLoginSucces'] ){
     echo $_SESSION['messageLoginSucces'] ;
-} else if ($_SESSION['messageLoginValid']){
-    echo $_SESSION['messageLoginValid'];
 }
-unset($_SESSION['messageLoginValid'] );
+ if ( $_SESSION['messageLoginValid'] ){
+    echo  $_SESSION['messageLoginValid'] ;
+}
+unset( $_SESSION['messageLoginValid']  );
 unset($_SESSION['messageLoginSucces'] )
 
 
