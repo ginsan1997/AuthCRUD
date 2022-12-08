@@ -1,4 +1,8 @@
 <?php
+if ( $_SERVER['REQUEST_METHOD']=='GET' && realpath(__FILE__) == realpath( $_SERVER['SCRIPT_FILENAME'] ) ) {
+    header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
+    die( header( 'location: /error.php' ) );
+    }
 session_start();
 
 
@@ -50,12 +54,20 @@ if(($_POST['confirmPassword']) === '') {
     $_SESSION['messageErrPassConfwordEmpty'] .= '<div class="error"> Пустое поле*</div>';
     $errors++;
     }
-// Проверка на пробелы пароль
-for($i=0; $i<=sizeof($_POST['password']); $i++){
-    if($_POST['password'][$i] === ' '){
-        $_SESSION['messageErrPass'] .= '<div class="error">Ошибка!В пароле содержаться пробелы</div>';
-        $errors++;
-    }
+
+    
+// Проверка на пробелы 
+$preg = '/^[a-z0-9.-]{6,16}$/isu';
+$check = preg_match($preg, $_POST['password']);
+if($_POST['password'] && !$check) {
+    $errors++;
+    $_SESSION['messageErrPass'] .= '<div class="error">Ошибка!В пароле содержаться недопустимые символы</div>';
+}
+
+$checkNamePreg = preg_match('/^[a-z]{6,16}$/isu', $_POST['name']);
+if($_POST['name'] && !$checkNamePreg) {
+    $errors++;
+    $_SESSION['messageErrName'] .= '<div class="error">Ошибка!В имени содержаться недопустимые символы</div>';
 }
 
     
@@ -79,7 +91,7 @@ $checkName = $register->getName(trim($_POST['name'])); // получаю имя
      }
 
 
- if(!preg_match('/[A-z]/u', trim($checkPass)) || (strlen(trim($checkPass)) < 6)){
+ if(!preg_match('/[A-z]/u', trim($checkPass)) || (strlen(trim($checkPass)) < 6) || !preg_match('/[0-9]/u', trim($checkPass))){
     $_SESSION['messageErrPass'] .= '<div class="error">Пароль должен состоять минимум из 6 символов и иметь 1 букву</div>';
      $errors++;
  }
